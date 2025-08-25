@@ -1,0 +1,27 @@
+{% schema %}
+{
+  "name": "Retro Carousel",
+  "blocks": [
+    { "type": "slide", "name": "Slide", "settings": [
+      { "type": "image_picker", "id": "img", "label": "Image" },
+      { "type": "url", "id": "link", "label": "Lien" },
+      { "type": "text", "id": "alt", "label": "Alt", "default": "Retro item" }
+    ]}
+  ],
+  "presets": [{ "name": "Retro Carousel" }]
+}
+{% endschema %}
+
+<div class="retro-carousel" data-retro-slider>
+  <div class="retro-track">
+    {% for block in section.blocks %}
+      <a class="retro-slide" href="{{ block.settings.link }}">
+        {{ block.settings.img | image_url: width: 1200 | image_tag: alt: block.settings.alt, loading: 'lazy' }}
+      </a>
+    {% endfor %}
+  </div>
+  <button class="retro-prev" aria-label="Précédent">‹</button>
+  <button class="retro-next" aria-label="Suivant">›</button>
+</div>
+<script src="{{ 'retro.js' | asset_url }}" defer></script>
+<link rel="stylesheet" href="{{ 'retro.css' | asset_url }}">

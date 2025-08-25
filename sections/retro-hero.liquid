@@ -1,0 +1,32 @@
+{% schema %}
+{
+  "name": "Retro Hero 90s",
+  "settings": [
+    { "type": "image_picker", "id": "bg", "label": "Image de fond" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Back to 1999" },
+    { "type": "text", "id": "subtitle", "label": "Sous-titre", "default": "CD, cassettes & stickers" },
+    { "type": "url", "id": "cta_link", "label": "Lien CTA" },
+    { "type": "text", "id": "cta_label", "label": "Texte CTA", "default": "Shop now" }
+  ],
+  "blocks": [
+    { "type": "badge", "name": "Badge", "settings": [{ "type": "text", "id": "text", "label": "Texte", "default": "New!" }] }
+  ],
+  "max_blocks": 3,
+  "presets": [{ "name": "Retro Hero 90s" }]
+}
+{% endschema %}
+
+<section class="retro-hero" style="--bg:url({{ section.settings.bg | image_url }})">
+  <div class="retro-hero__inner">
+    <h1>{{ section.settings.title }}</h1>
+    <p>{{ section.settings.subtitle }}</p>
+    {% if section.settings.cta_link != blank %}
+      <a class="retro-btn" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }}</a>
+    {% endif %}
+    <ul class="retro-badges" role="list">
+      {% for block in section.blocks %}
+        <li class="retro-badge">{{ block.settings.text }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
